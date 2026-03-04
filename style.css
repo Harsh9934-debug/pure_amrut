@@ -946,31 +946,33 @@ ul.pa-list-check li i {
 /* Testimonials */
 .pa-testimonial-card {
     background: white;
-    padding: 35px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Updated shadow */
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    min-width: 320px;
-    height: 320px;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    min-width: 350px;
+    height: auto;
+    min-height: 300px; /* Adjusted height logic */
     display: flex;
     flex-direction: column;
 }
 
 .pa-quote-icon {
-    font-size: 32px;
-    color: #ffe066;
-    margin-bottom: 15px;
+    font-size: 60px; /* Larger Quote */
+    color: #ffda6a; /* Updated color */
+    margin-bottom: 10px;
     opacity: 1;
     font-family: serif;
+    line-height: 1;
 }
 
 .pa-testimonial-text {
-    font-size: 14px;
+    font-size: 16px; /* Larger text */
     color: #555;
     font-style: italic;
-    margin-bottom: 25px;
-    line-height: 1.6;
+    margin-bottom: 30px;
+    line-height: 1.8;
     flex-grow: 1;
 }
 
@@ -992,9 +994,9 @@ ul.pa-list-check li i {
 }
 
 .pa-author-info h4 {
-    font-size: 15px;
-    margin-bottom: 4px;
-    color: #222;
+    font-size: 18px; /* Larger name */
+    margin-bottom: 5px;
+    color: #333;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
@@ -1240,23 +1242,24 @@ ul.pa-list-check li i {
 .pa-testimonials-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 30px;
-    padding-bottom: 20px;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+    gap: 40px; /* Increased gap */
+    padding: 20px 20px 40px 20px; /* Padding for shadow clearance */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory; /* Snap effect */
+    -webkit-overflow-scrolling: touch;
 }
 
 .pa-testimonials-scroll::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari and Opera */
+    display: none; /* Chrome, Safari and Opera */
 }
 
 .pa-testimonials-scroll .pa-testimonial-card {
-    min-width: 320px;
+    min-width: 350px;
+    width: 350px;
     flex-shrink: 0;
+    scroll-snap-align: start; /* Snap alignment */
 }
 
 /* Instagram Reel */

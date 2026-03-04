@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey | PureAmrut Foods</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific Styles for Our Journey Page if not in main CSS yet */
+        .pa-journey-section {
+            background-color: #fff;
+            padding: 80px 0;
+        }
+        
+        .pa-journey-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+
+        .pa-journey-timeline {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        /* Dotted Line */
+        .pa-journey-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50px; /* Adjust based on leaf center */
+            height: 100%;
+            width: 2px;
+            border-left: 2px dashed #ccc;
+            z-index: 0;
+        }
+
+        .pa-timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            padding-left: 100px; /* Space for the leaf */
+            z-index: 1;
+        }
+
+        .pa-timeline-leaf {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .pa-timeline-leaf span {
+            transform: rotate(-45deg); /* Counter rotate text */
+            display: block;
+            width: 100%;
+        }
+
+        /* Colors for leaves */
+        .leaf-orange { background: linear-gradient(135deg, #ff7043, #ff5722); }
+        .leaf-blue { background: linear-gradient(135deg, #42a5f5, #1e88e5); }
+        .leaf-purple { background: linear-gradient(135deg, #ab47bc, #8e24aa); }
+        .leaf-green { background: linear-gradient(135deg, #66bb6a, #43a047); }
+        .leaf-dark { background: linear-gradient(135deg, #555, #333); }
+
+        .pa-timeline-content h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .pa-timeline-content p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .pa-journey-images {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pa-journey-img-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .pa-journey-img-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .pa-journey-img-card:hover img {
+            transform: scale(1.02);
+        }
+
+        @media(max-width: 768px) {
+            .pa-journey-timeline::before {
+                left: 40px;
+            }
+            .pa-timeline-item {
+                padding-left: 90px;
+            }
+            .pa-timeline-leaf {
+                width: 60px;
+                height: 60px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav class="pa-nav">
+        <div class="pa-container pa-nav-inner">
+            <a href="index.html" class="pa-logo">
+                <img src="assets/images/pureamrutimage.png" alt="PureAmrut" style="height: 100px; width: auto; object-fit: contain; margin-top: 5px; margin-bottom: 5px;">
+            </a>
+            <div class="pa-nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <div class="pa-dropdown">
+                    <a href="products.html">Products <i class="fas fa-chevron-down"
+                            style="font-size: 12px; margin-left: 4px;"></i></a>
+                    <div class="pa-dropdown-content">
+                        <a href="products-wholegrain.html">Whole Grains</a>
+                        <a href="products-pulses.html">Pulses (Dals)</a>
+                        <a href="products-atta.html">Atta (Flour)</a>
+                        <a href="products-besan.html">Besan</a>
+                        <a href="products-masala.html">Masala</a>
+                    </div>
+                </div>
+                <a href="facility.html">Facility</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="privatelabel.html">Private Label</a>
+                <a href="investors.html">Investors</a>
+                <a href="blog.html">Blog</a>
+                <a href="our-journey.html" class="active">Our Journey</a>
+                <a href="become-distributor.html">Become Distributor</a>
+                <a href="contact.html" class="pa-btn" style="padding: 8px 24px;">Contact Us</a>
+            </div>
+            <div class="pa-mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <section class="pa-section" style="background: #f9f9f9; padding: 60px 0 20px;">
+        <div class="pa-container text-center">
+            <div class="section-header">
+                <h2>Our Journey</h2>
+                <hr>
+                <p>A timeline of our growth, commitment, and milestones.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOURNEY SECTION -->
+    <section class="pa-journey-section">
+        <div class="pa-container">
+            <div class="pa-journey-container">
+                
+                <!-- TIMELINE (Left) -->
+                <div class="pa-journey-timeline">
+                    
+                    <!-- Item 1 -->
+                    <div class="pa-timeline-item">
+                        <div class="pa-timeline-leaf leaf-orange">
+                            <span>Jan<br>2018</span>
+                        </div>
+                        <div class="pa-timeline-content">
+                            <h4>PureAmrut Launched</h4>
+                            <p>PureAmrut was launched as our flagship brand, bringing purity to every home.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="pa-timeline-item">
+                        <div class="pa-timeline-leaf leaf-purple">
+                            <span>Aug<br>2019</span>
+                        </div>
+                        <div class="pa-timeline-content">
+                            <h4>Expansion to Pulses</h4>
+                            <p>We expanded our range to include vacuum-packed pulses, ensuring long-lasting freshness.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="pa-timeline-item">
+                        <div class="pa-timeline-leaf leaf-blue">
+                            <span>June<br>2021</span>
+                        </div>
+                        <div class="pa-timeline-content">
+                            <h4>Export Operations Began</h4>
+                            <p>PureAmrut started exporting to international markets, sharing our quality globally.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="pa-timeline-item">
+                        <div class="pa-timeline-leaf leaf-green">
+                            <span>May<br>2023</span>
+                        </div>
+                        <div class="pa-timeline-content">
+                            <h4>New Processing Facility</h4>
+                            <p>Inaugurated our state-of-the-art fully automated processing unit in Gujarat.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="pa-timeline-item">
+                        <div class="pa-timeline-leaf leaf-dark">
+                            <span>Dec<br>2025</span>
+                        </div>
+                        <div class="pa-timeline-content">
+                            <h4>1000+ Happy Families</h4>
+                            <p>Reached a milestone of serving over 1000 families with our subscription model.</p>
+                        </div>
+                    </div>
+
+                     <!-- Item 6 (Future) -->
+                     <div class="pa-timeline-item">
+                        <div class="pa-timeline-leaf leaf-orange">
+                            <span>June<br>2026</span>
+                        </div>
+                        <div class="pa-timeline-content">
+                            <h4>Future Vision</h4>
+                            <p>Celebrating 10 years of business excellence and community trust.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- IMAGES (Right) -->
+                <div class="pa-journey-images">
+                    <div class="pa-journey-img-card">
+                        <img src="assets/images/wheat_harvest_farm.png" alt="Wheat Harvest">
+                    </div>
+                    <div class="pa-journey-img-card">
+                        <img src="assets/images/grain_processing_factory.png" alt="Processing Factory">
+                    </div>
+                    <div class="pa-journey-img-card">
+                         <img src="assets/images/spices_market_display.png" alt="Spices Market">
+                    </div>
+                    <!-- Added extra dummy photos -->
+                    <div class="pa-journey-img-card">
+                        <img src="assets/images/product-masala.png" alt="Masala Products">
+                   </div>
+                   <div class="pa-journey-img-card">
+                        <img src="assets/images/product-moong.png" alt="Moong Dal">
+                   </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+        <!-- FOOTER -->
+    <footer class="pa-footer">
+        <div class="pa-footer-watermark">PUREAMRUT</div>
+        <div class="pa-container" style="position: relative; z-index: 1;">
+            <div class="pa-grid pa-grid-4" style="align-items: start;">
+                 <!-- Brand -->
+                <div>
+                    <a href="index.html" class="pa-logo" style="display:block; margin-bottom:15px;">
+                        <img src="assets/images/pureamrutimage.png" alt="PureAmrut" style="height: 100px; width: auto; object-fit: contain; margin-top: 5px; margin-bottom: 5px;">
+                    </a>
+                    <p style="font-size: 14px; color: #666; font-weight: 500;">Purity you can taste, Quality you can trust.</p>
+                </div>
+
+                <!-- Company & Socials Group -->
+                <div style="display: flex; gap: 60px; flex-wrap: wrap;">
+                    <div>
+                        <h3>Company</h3>
+                        <a href="about.html">About Us</a>
+                        <a href="products.html">Products</a>
+                        <a href="contact.html">Contact Us</a>
+                        <a href="investors.html">Investors</a>
+                    </div>
+
+                    <!-- Socials -->
+                    <div>
+                        <h3>Socials</h3>
+                        <a href="https://www.instagram.com/pureamrutfoods" target="_blank" class="pa-link-arrow">Instagram <i class="fas fa-arrow-right pa-link-arrow"></i></a>
+                        <a href="#" class="pa-link-arrow">Facebook <i class="fas fa-arrow-right pa-link-arrow"></i></a>
+                        <a href="#" class="pa-link-arrow">LinkedIn <i class="fas fa-arrow-right pa-link-arrow"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Contact Details -->
+                <div style="margin-top: 20px;">
+                    <h3>Get in Touch</h3>
+                    <p style="margin-bottom:10px; font-size:14px; color:#666; display: flex; align-items: flex-start; gap: 10px;">
+                        <i class="fas fa-map-marker-alt" style="color:var(--primary); margin-top: 4px;"></i> 
+                        <span>PureAmrut Foods, Plot No-7, Rajhansh Industrial Park, Opp. Bhagvati pipe, Junagadh Road, Rajkot – 360410, Gujarat, India</span>
+                    </p>
+                    <p style="margin-bottom:10px; font-size:14px; color:#666; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-envelope" style="color:var(--primary);"></i> sales@pureamrut.com
+                    </p>
+                    
+                    <!-- Newsletter Box -->
+                    <div style="margin-top: 25px;">
+                        <h4 style="margin-bottom: 15px; font-size: 15px; font-family: 'Outfit', sans-serif;">Subscribe to Newsletter</h4>
+                        <div style="position: relative; max-width: 300px;">
+                            <input type="email" class="pa-newsletter-input" placeholder="Email Address">
+                            <button type="button" class="pa-newsletter-btn"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="pa-footer-bottom">
+                <div>&copy; 2026 PureAmrut Foods. All Rights Reserved.</div>
+                <div style="display: flex; gap: 20px;">
+                    <a href="privacy-policy.html" style="margin:0; color:#999;">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

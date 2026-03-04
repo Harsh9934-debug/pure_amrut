@@ -109,13 +109,23 @@ ul {
     font-weight: 700;
     color: var(--primary);
     letter-spacing: 0.5px;
+    line-height: 1; /* Tighten line height */
+    display: flex;
+    align-items: center;
+}
+
+/* Force remove inline margins to minimize header height while keeping logo size */
+.pa-logo img {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: block;
 }
 
 .pa-nav-links {
     display: flex;
-    display: flex;
     gap: 30px;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .pa-nav-links a {
@@ -123,6 +133,7 @@ ul {
     font-size: 16px;
     color: var(--dark);
     position: relative;
+    white-space: nowrap;
 }
 
 .pa-nav-links a::after {
@@ -1204,13 +1215,28 @@ ul.pa-list-check li i {
         height: 300px !important;
     }
 
-    /* Stack Footer Grid */
+    /* Footer Layout: Mobile */
     .pa-footer .pa-grid-4 {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center !important;
-        justify-items: center;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        text-align: left !important;
+        justify-items: start;
+        align-items: start !important;
+    }
+
+    /* Brand Section - Centered */
+    .pa-footer .pa-grid-4 > div:first-child {
+        grid-column: 1 / -1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
         align-items: center !important;
+        text-align: center !important;
+    }
+
+    /* Contact Section - Full Width */
+    .pa-footer .pa-grid-4 > div:last-child {
+        grid-column: 1 / -1;
     }
 
     /* Stack other grids if needed, though auto-fit handles most */

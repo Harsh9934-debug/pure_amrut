@@ -8,67 +8,121 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Specific Styles for Our Journey Page if not in main CSS yet */
+        /* Specific Styles for Our Journey Page */
         .pa-journey-section {
             background-color: #fff;
             padding: 80px 0;
+            overflow: hidden;
         }
-        
-        .pa-journey-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 50px;
-        }
-
-        .pa-journey-timeline {
-            flex: 1;
-            min-width: 300px;
+        .pa-journey-main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr; /* More space for images */
+            gap: 40px; /* Reduced gap slightly */
+            max-width: 1200px;
+            margin: 0 auto;
             position: relative;
-            padding-left: 20px;
         }
 
-        /* Dotted Line */
-        .pa-journey-timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50px; /* Adjust based on leaf center */
-            height: 100%;
-            width: 2px;
-            border-left: 2px dashed #ccc;
-            z-index: 0;
+        .pa-journey-left-col {
+            position: relative;
+            padding-left: 10px; /* Small safe area */
+        }
+
+        .pa-journey-right-col {
+            position: relative;
         }
 
         .pa-timeline-item {
             position: relative;
             margin-bottom: 60px;
-            padding-left: 100px; /* Space for the leaf */
+            display: flex;
+            align-items: flex-start; /* Align Top */
+            padding-left: 90px; /* Space for leaf + gap */
+            z-index: 2;
+        }
+
+        .pa-timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* The Vertical Line - Per Item Concept */
+        .pa-timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 35px; /* Center of the 70px leaf */
+            top: 70px; /* Start right below the leaf */
+            height: calc(100% + 10px); /* Reach the next item. The gap is 60px margin. height 100% is the item height. */
+            /* Wait, margin is outside. height: 100% is content height. 
+               We need height: calc(100% + margin-bottom - top_offset?) 
+               Actually, easiest is: bottom: -60px (the margin amount).
+            */
+            bottom: -60px;
+            width: 2px;
+            border-left: 2px dashed #d1d1d1;
             z-index: 1;
         }
 
+        /* Start line from top for visual connection if needed? No, start below leaf. */
+        
+        /* Hide line on last item */
+        .pa-timeline-item:last-child::before {
+            display: none;
+        }
+
+        /* Content Layout */
+        .pa-timeline-content {
+            flex: 1;
+            padding: 10px 0 10px 0; /* Align text with leaf visual center */
+            background: transparent;
+            text-align: left !important;
+        }
+
+        /* Leaf Marker - Adjusted for top alignment */
         .pa-timeline-leaf {
-            position: absolute;
-            left: 10px;
-            top: 0;
-            width: 80px;
-            height: 80px;
+            width: 70px; 
+            height: 70px;
             border-radius: 0 50% 50% 50%;
-            transform: rotate(45deg);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             line-height: 1.2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            position: absolute;
+            left: 0; 
+            top: 0; /* Align top */
+            transform: rotate(45deg); 
+            z-index: 2;
+            flex-shrink: 0;
         }
 
         .pa-timeline-leaf span {
             transform: rotate(-45deg); /* Counter rotate text */
             display: block;
             width: 100%;
+        }
+
+        /* Dot - Optional, removing for cleaner look or keeping if user wants */
+        .pa-timeline-dot {
+            display: none; 
+        }
+        
+        .pa-timeline-content h4 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-top: 5px; /* Visual tweak to align with leaf center */
+        }
+
+        .pa-timeline-content p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
         }
 
         /* Colors for leaves */
@@ -78,55 +132,53 @@
         .leaf-green { background: linear-gradient(135deg, #66bb6a, #43a047); }
         .leaf-dark { background: linear-gradient(135deg, #555, #333); }
 
-        .pa-timeline-content h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .pa-timeline-content p {
-            color: #666;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
-        .pa-journey-images {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
+        /* Right Column Gallery Grid */
+        .pa-gallery-grid-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
 
-        .pa-journey-img-card {
+        .pa-gallery-item {
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            aspect-ratio: 4/3; /* Enforce square/rectangular shape */
         }
 
-        .pa-journey-img-card img {
+        .pa-gallery-item img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            transition: transform 0.3s;
+            transition: transform 0.5s ease;
+        }
+
+        .pa-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .pa-journey-main-grid {
+                grid-template-columns: 1fr; /* Stack */
+                gap: 50px;
+            }
+            
+            .pa-journey-right-col {
+                order: -1; /* Images on top? Or bottom? Default bottom */
+            }
+             
+            /* Make gallery grid standard on mobile */
+            .pa-gallery-grid-col {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
-        .pa-journey-img-card:hover img {
-            transform: scale(1.02);
-        }
-
-        @media(max-width: 768px) {
-            .pa-journey-timeline::before {
-                left: 40px;
-            }
-            .pa-timeline-item {
-                padding-left: 90px;
-            }
-            .pa-timeline-leaf {
-                width: 60px;
-                height: 60px;
-                font-size: 12px;
+        @media(max-width: 600px) {
+             .pa-gallery-grid-col {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -182,10 +234,11 @@
     <!-- JOURNEY SECTION -->
     <section class="pa-journey-section">
         <div class="pa-container">
-            <div class="pa-journey-container">
-                
-                <!-- TIMELINE (Left) -->
-                <div class="pa-journey-timeline">
+            
+            <div class="pa-journey-main-grid">
+
+                <!-- Left Column: Timeline -->
+                <div class="pa-journey-left-col">
                     
                     <!-- Item 1 -->
                     <div class="pa-timeline-item">
@@ -242,8 +295,8 @@
                         </div>
                     </div>
 
-                     <!-- Item 6 (Future) -->
-                     <div class="pa-timeline-item">
+                    <!-- Item 6 (Future) -->
+                    <div class="pa-timeline-item">
                         <div class="pa-timeline-leaf leaf-orange">
                             <span>June<br>2026</span>
                         </div>
@@ -255,31 +308,35 @@
 
                 </div>
 
-                <!-- IMAGES (Right) -->
-                <div class="pa-journey-images">
-                    <div class="pa-journey-img-card">
-                        <img src="assets/images/wheat_harvest_farm.png" alt="Wheat Harvest">
+                <!-- Right Column: Gallery Images -->
+                <div class="pa-journey-right-col">
+                    <h3 style="margin-bottom: 30px; font-weight: 700; color: #333; padding-left: 10px; border-left: 4px solid var(--primary);">Glimpses of Our Process</h3>
+                    
+                    <div class="pa-gallery-grid-col">
+                        <!-- Farm -->
+                        <div class="pa-gallery-item">
+                            <img src="assets/images/wheat_harvest_farm.png" alt="PureAmrut Farm">
+                        </div>
+                        <!-- Facility -->
+                        <div class="pa-gallery-item">
+                            <img src="assets/images/atta_flour_premium.png" alt="Processing Facility">
+                        </div>
+                        <!-- Cleaning -->
+                        <div class="pa-gallery-item">
+                            <img src="assets/images/hero-pulses.png" alt="Advanced Machinery">
+                        </div>
+                        <!-- Product -->
+                        <div class="pa-gallery-item">
+                            <img src="assets/images/whole_wheat_premium.png" alt="Premium Products">
+                        </div>
                     </div>
-                    <div class="pa-journey-img-card">
-                        <img src="assets/images/grain_processing_factory.png" alt="Processing Factory">
-                    </div>
-                    <div class="pa-journey-img-card">
-                         <img src="assets/images/spices_market_display.png" alt="Spices Market">
-                    </div>
-                    <!-- Added extra dummy photos -->
-                    <div class="pa-journey-img-card">
-                        <img src="assets/images/product-masala.png" alt="Masala Products">
-                   </div>
-                   <div class="pa-journey-img-card">
-                        <img src="assets/images/product-moong.png" alt="Moong Dal">
-                   </div>
                 </div>
 
             </div>
         </div>
     </section>
 
-        <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer class="pa-footer">
         <div class="pa-footer-watermark">PUREAMRUT</div>
         <div class="pa-container" style="position: relative; z-index: 1;">
@@ -292,27 +349,25 @@
                     <p style="font-size: 14px; color: #666; font-weight: 500;">Purity you can taste, Quality you can trust.</p>
                 </div>
 
-                <!-- Company & Socials Group -->
-                <div style="display: flex; gap: 60px; flex-wrap: wrap;">
-                    <div>
-                        <h3>Company</h3>
-                        <a href="about.html">About Us</a>
-                        <a href="products.html">Products</a>
-                        <a href="contact.html">Contact Us</a>
-                        <a href="investors.html">Investors</a>
-                    </div>
+                <!-- Company -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <h3>Company</h3>
+                    <a href="about.html">About Us</a>
+                    <a href="products.html">Products</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="investors.html">Investors</a>
+                </div>
 
-                    <!-- Socials -->
-                    <div>
-                        <h3>Socials</h3>
-                        <a href="https://www.instagram.com/pureamrutfoods" target="_blank" class="pa-link-arrow">Instagram <i class="fas fa-arrow-right pa-link-arrow"></i></a>
-                        <a href="#" class="pa-link-arrow">Facebook <i class="fas fa-arrow-right pa-link-arrow"></i></a>
-                        <a href="#" class="pa-link-arrow">LinkedIn <i class="fas fa-arrow-right pa-link-arrow"></i></a>
-                    </div>
+                <!-- Socials -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <h3>Socials</h3>
+                    <a href="https://www.instagram.com/pureamrutfoods" target="_blank" class="pa-link-arrow">Instagram <i class="fas fa-arrow-right pa-link-arrow"></i></a>
+                    <a href="#" class="pa-link-arrow">Facebook <i class="fas fa-arrow-right pa-link-arrow"></i></a>
+                    <a href="#" class="pa-link-arrow">LinkedIn <i class="fas fa-arrow-right pa-link-arrow"></i></a>
                 </div>
                 
                 <!-- Contact Details -->
-                <div style="margin-top: 20px;">
+                <div>
                     <h3>Get in Touch</h3>
                     <p style="margin-bottom:10px; font-size:14px; color:#666; display: flex; align-items: flex-start; gap: 10px;">
                         <i class="fas fa-map-marker-alt" style="color:var(--primary); margin-top: 4px;"></i> 

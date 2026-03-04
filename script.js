@@ -32,11 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // AUTO SLIDER (Headers from User)
     const slides = [
-        "assets/images/hero_women_farm.png",
         "assets/images/pulses_variety_premium.png",
         "assets/images/masala_spices_premium.png",
-        "assets/images/about_our_story.png",
-        "assets/images/grain_processing_factory.png",
+        "assets/images/Plant Image.jpg",
         "assets/images/hero_slider_family_meal.png"
     ];
 
